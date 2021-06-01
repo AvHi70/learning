@@ -1,0 +1,25 @@
+/**
+ * Lab 1 : Create a JSON file, add data of your college. For example college name, college address, phone number and so on. 
+ * Parse it and display it in browser in HTML table. Use HTTP  module and fs module only.
+ */
+const fs = require("fs");       
+const http = require("http");
+
+//to read/import the student.json file
+const studentDetail = fs.readFileSync("students.json");
+
+//to convert buffer data into string
+const inString = studentDetail.toString();
+
+//parse to the json file
+const data = JSON.parse(inString);
+ 
+//to create server to show in web
+http.createServer(function(req, res){
+
+    //inserting into table
+    res.write("<table border=2><tr>Name<td>"+data.name+"</td></tr></table>");
+    res.write("<table border=2><tr>Batch<td>"+data.batch+"</td></tr></table>");
+    res.write("<table border=2><tr>ID No.<td>"+data.id+"</td></tr></table>");          
+    res.end()       //to stop 
+}).listen(90)       //for entry point
